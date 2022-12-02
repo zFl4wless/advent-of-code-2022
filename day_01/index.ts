@@ -4,7 +4,7 @@ let caloriesList = [];
 let currentCalories = 0;
 fs.readFileSync("./day_01/input.txt", "utf-8")
   .split(/\r?\n/)
-  .forEach((line, index) => {
+  .forEach((line) => {
     if (line == "") {
       caloriesList.push(currentCalories);
       currentCalories = 0;
