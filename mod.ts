@@ -1,7 +1,7 @@
 import { AdventDay } from "./core/AdventDay.ts";
 import { AdventDay01 } from "./day_01/AdventDay01.ts";
 import { AdventDay02 } from "./day_02/AdventDay02.ts";
-import { AdventDay03 } from "./day_03/index.ts";
+import { AdventDay03 } from "./day_03/AdventDay03.ts";
 
 const answer = prompt("Select a day to view the solution output! [1-24] ");
 if (answer && isNaN(parseInt(answer))) {

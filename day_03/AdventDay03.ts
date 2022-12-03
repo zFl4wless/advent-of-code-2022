@@ -8,7 +8,7 @@ export class AdventDay03 extends AdventDay {
 
     this.prioritySumItemTypes = 0;
     this.input.forEach((line) => {
-      this.calculatePriortySumItemTypes(line);
+      this.calculatePrioritySumItemTypes(line);
     });
   }
 
@@ -18,7 +18,7 @@ export class AdventDay03 extends AdventDay {
 
   part02(): void {}
 
-  private calculatePriortySumItemTypes(line: string) {
+  private calculatePrioritySumItemTypes(line: string) {
     const [firstCompartment, secondCompartment] = [
       line.substring(0, line.length / 2),
       line.substring(line.length / 2),
