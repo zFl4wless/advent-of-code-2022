@@ -1,27 +1,43 @@
-import * as fs from "fs";
+import { AdventDay } from "../core/AdventDay.ts";
+
+export class AdventDay03 extends AdventDay {
+  private prioritySumItemTypes: number;
+
+  constructor() {
+    super(3);
+
+    this.prioritySumItemTypes = 0;
+    this.input.forEach((line) => {
+      this.calculatePriortySumItemTypes(line);
+    });
+  }
+
+  part01(): void {
+    console.log(this.prioritySumItemTypes);
+  }
+
+  part02(): void {}
+
+  private calculatePriortySumItemTypes(line: string) {
+    const [firstCompartment, secondCompartment] = [
+      line.substring(0, line.length / 2),
+      line.substring(line.length / 2),
+    ];
+
+    const sharedCharacter = firstCompartment
+      .split("")
+      .find((char) => secondCompartment.includes(char));
+    if (!sharedCharacter) {
+      return;
+    }
+
+    const priority =
+      sharedCharacter === sharedCharacter.toLowerCase()
+        ? alphabet.indexOf(sharedCharacter) + 1
+        : alphabet.indexOf(sharedCharacter.toLowerCase()) + 27;
+
+    this.prioritySumItemTypes += priority;
+  }
+}
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
-let prioritySumItemTypes = 0;
-fs.readFileSync("./day_03/input.txt", "utf-8")
-  .split(/\r?\n/)
-  .forEach((line) => {
-    calculatePriortySumItemTypes(line);
-  });
-
-// Part 1
-function calculatePriortySumItemTypes(line: string) {
-  const [firstCompartment, secondCompartment] = [
-    line.substring(0, line.length / 2),
-    line.substring(line.length / 2),
-  ];
-
-  const sharedCharacter = firstCompartment
-    .split("")
-    .find((char) => secondCompartment.includes(char));
-  const priority =
-    sharedCharacter === sharedCharacter.toLowerCase()
-      ? alphabet.indexOf(sharedCharacter) + 1
-      : alphabet.indexOf(sharedCharacter.toLowerCase()) + 27;
-  prioritySumItemTypes += priority;
-}
-console.log(prioritySumItemTypes);
