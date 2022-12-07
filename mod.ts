@@ -3,6 +3,7 @@ import { AdventDay01 } from './day_01/AdventDay01.ts';
 import { AdventDay02 } from './day_02/AdventDay02.ts';
 import { AdventDay03 } from './day_03/AdventDay03.ts';
 import { AdventDay04 } from './day_04/AdventDay04.ts';
+import { AdventDay05 } from './day_05/AdventDay05.ts';
 
 const answer = prompt('Select a day to view the solution output! [1-24] ');
 if (answer && isNaN(parseInt(answer))) {
@@ -29,6 +30,9 @@ switch (day) {
         break;
     case 4:
         adventDay = new AdventDay04();
+        break;
+    case 5:
+        adventDay = new AdventDay05();
         break;
     default:
         console.log('Invalid day selected!');
