@@ -14,10 +14,10 @@ export class AdventDay03 extends AdventDay {
     this.badges = [];
     this.iterationCount = 1;
     this.input.forEach((line) => {
-      this.calculatePrioritySumItemTypesFromCompartments(line);
-      this.calculatePrioritySumItemTypesFromElfGroups(line);
+        this.calculatePrioritySumItemTypesFromCompartments(line);
+        this.calculatePrioritySumItemTypesFromElfGroups(line);
 
-      this.iterationCount++;
+        this.iterationCount++;
     });
   }
 

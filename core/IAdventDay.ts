@@ -1,6 +1,6 @@
 export interface IAdventDay {
-  input: string[];
+    input: string[];
 
-  part01(): void;
-  part02(): void;
+    part01(): void;
+    part02(): void;
 }

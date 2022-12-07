@@ -10,10 +10,10 @@ export class AdventDay02 extends AdventDay {
     this.assumedScore = 0;
     this.correctScore = 0;
     this.input.forEach((line) => {
-      const [firstChar, secondChar] = line.split(" ");
+        const [firstChar, secondChar] = line.split(' ');
 
-      this.calculateAssumedScore(firstChar, secondChar);
-      this.calculateCorrectScore(firstChar, secondChar);
+        this.calculateAssumedScore(firstChar, secondChar);
+        this.calculateCorrectScore(firstChar, secondChar);
     });
   }
 
