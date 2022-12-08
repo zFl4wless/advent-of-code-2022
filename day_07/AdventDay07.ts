@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { AdventDay } from '../core/AdventDay.ts';
 
 export class AdventDay07 extends AdventDay {
