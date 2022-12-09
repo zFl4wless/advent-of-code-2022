@@ -5,8 +5,19 @@ export class AdventDay09 extends AdventDay {
     private gridCols = 1000;
     private grid: string[][] = [];
     private head: { x: number; y: number } = { x: 0, y: 0 };
-    private tail: { x: number; y: number } = { x: 0, y: 0 };
-    private visitedPosition: { x: number; y: number }[] = [];
+    private knots: { x: number; y: number }[] = [
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+    ];
+    private visitedPositionsFirstKnot: { x: number; y: number }[] = [];
+    private visitedPositionsLastKnot: { x: number; y: number }[] = [];
 
     constructor() {
         super(9);
@@ -21,8 +32,17 @@ export class AdventDay09 extends AdventDay {
 
         // Set the head and tail.
         this.head = { x: this.gridCols / 2, y: this.gridRows / 2 };
-        this.tail = { x: this.gridCols / 2, y: this.gridRows / 2 };
-        this.visitedPosition.push({ x: this.tail.x, y: this.tail.y });
+        this.knots.forEach((knot, index) => {
+            knot.x = this.gridCols / 2;
+            knot.y = this.gridRows / 2;
+
+            if (index === 0) {
+                this.visitedPositionsFirstKnot.push({ x: knot.x, y: knot.y });
+            }
+            if (index === 8) {
+                this.visitedPositionsLastKnot.push({ x: knot.x, y: knot.y });
+            }
+        });
 
         // Read the input.
         this.input.forEach((line) => {
@@ -31,9 +51,6 @@ export class AdventDay09 extends AdventDay {
             // Move the head and the tail.
             this.moveHead(direction, parseInt(length));
             this.moveTail();
-
-            /* DEBUG */
-            /* this.printGrid(); */
         });
     }
 
@@ -58,78 +75,78 @@ export class AdventDay09 extends AdventDay {
             }
             this.grid[this.head.y][this.head.x] = 'H';
             this.moveTail();
-
-            /* DEBUG */
-            /* this.grid.forEach((row) => {
-                console.log(row.join(''));
-            });
-            console.log('\n'); */
         }
     }
 
     private moveTail(): void {
-        if (Math.abs(this.head.x - this.tail.x) <= 1 && Math.abs(this.head.y - this.tail.y) <= 1) {
-            if (this.grid[this.tail.y][this.tail.x] === '.') {
-                this.grid[this.tail.y][this.tail.x] = 'T';
+        this.knots.forEach((knot, index) => {
+            const toFollow = index + 1 === 1 ? this.head : this.knots[index - 1];
+
+            if (Math.abs(toFollow.x - knot.x) <= 1 && Math.abs(toFollow.y - knot.y) <= 1) {
+                if (this.grid[knot.y][knot.x] === '.') {
+                    this.grid[knot.y][knot.x] = (index + 1).toString();
+                }
+                return;
             }
-            return;
-        }
 
-        if (this.grid[this.tail.y][this.tail.x] === 'T') {
-            this.grid[this.tail.y][this.tail.x] = '.';
-        }
-        if (Math.abs(this.head.x - this.tail.x) + Math.abs(this.head.y - this.tail.y) > 2) {
-            // Move diagonally
-            const diffX = this.head.x - this.tail.x;
-            const diffY = this.head.y - this.tail.y;
+            if (this.grid[knot.y][knot.x] === (index + 1).toString()) {
+                this.grid[knot.y][knot.x] = '.';
+            }
+            if (Math.abs(toFollow.x - knot.x) + Math.abs(toFollow.y - knot.y) > 2) {
+                // Move diagonally
+                const diffX = toFollow.x - knot.x;
+                const diffY = toFollow.y - knot.y;
 
-            if (diffX > 0 && diffY > 0) {
-                this.tail.x++;
-                this.tail.y++;
-            } else if (diffX > 0 && diffY < 0) {
-                this.tail.x++;
-                this.tail.y--;
-            } else if (diffX < 0 && diffY > 0) {
-                this.tail.x--;
-                this.tail.y++;
-            } else if (diffX < 0 && diffY < 0) {
-                this.tail.x--;
-                this.tail.y--;
+                if (diffX > 0 && diffY > 0) {
+                    knot.x++;
+                    knot.y++;
+                } else if (diffX > 0 && diffY < 0) {
+                    knot.x++;
+                    knot.y--;
+                } else if (diffX < 0 && diffY > 0) {
+                    knot.x--;
+                    knot.y++;
+                } else if (diffX < 0 && diffY < 0) {
+                    knot.x--;
+                    knot.y--;
+                } else {
+                    console.log('Something went wrong.');
+                }
             } else {
-                console.log('Something went wrong.');
+                // Move the tail.
+                if (toFollow.x > knot.x) {
+                    knot.x++;
+                } else if (toFollow.x < knot.x) {
+                    knot.x--;
+                } else if (toFollow.y > knot.y) {
+                    knot.y++;
+                } else if (toFollow.y < knot.y) {
+                    knot.y--;
+                }
             }
-        } else {
-            // Move the tail.
-            if (this.head.x > this.tail.x) {
-                this.tail.x++;
-            } else if (this.head.x < this.tail.x) {
-                this.tail.x--;
-            } else if (this.head.y > this.tail.y) {
-                this.tail.y++;
-            } else if (this.head.y < this.tail.y) {
-                this.tail.y--;
+            this.grid[knot.y][knot.x] = (index + 1).toString();
+
+            if (index === 8) {
+                if (this.visitedPositionsLastKnot.find((pos) => pos.x === knot.x && pos.y === knot.y)) {
+                    return;
+                }
+                this.visitedPositionsLastKnot.push({ x: knot.x, y: knot.y });
             }
-        }
-        this.grid[this.tail.y][this.tail.x] = 'T';
 
-        if (this.visitedPosition.find((pos) => pos.x === this.tail.x && pos.y === this.tail.y)) {
-            return;
-        }
-        this.visitedPosition.push({ x: this.tail.x, y: this.tail.y });
-    }
-
-    /* DEBUG */
-    private count = 1;
-    private printGrid() {
-        console.log('############################################');
-        console.log('Step', this.count);
-        console.log('############################################');
-        this.count++;
+            if (index === 0) {
+                if (this.visitedPositionsFirstKnot.find((pos) => pos.x === knot.x && pos.y === knot.y)) {
+                    return;
+                }
+                this.visitedPositionsFirstKnot.push({ x: knot.x, y: knot.y });
+            }
+        });
     }
 
     part01(): void {
-        console.log(this.visitedPosition.length);
+        console.log(this.visitedPositionsFirstKnot.length);
     }
 
-    part02(): void {}
+    part02(): void {
+        console.log(this.visitedPositionsLastKnot.length);
+    }
 }
