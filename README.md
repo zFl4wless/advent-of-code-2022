@@ -14,7 +14,7 @@ Hohoho, It's my first time trying the AoC! Hopefully i don't mess things up too 
 | 7    | ⭐ ⭐  |
 | 8    | ⭐ ⭐  |
 | 9    | ⭐ ⭐  |
-| 10   | ⚫ ⚫  |
+| 10   | ⭐ ⚫  |
 | 11   | ⚫ ⚫  |
 | 12   | ⚫ ⚫  |
 | 13   | ⚫ ⚫  |
