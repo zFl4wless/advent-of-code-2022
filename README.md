@@ -29,3 +29,4 @@ Hohoho, It's my first time trying the AoC! Hopefully i don't mess things up too 
 | 22   | ⚫ ⚫  |
 | 23   | ⚫ ⚫  |
 | 24   | ⚫ ⚫  |
+| 25   | ⚫ ⚫  |

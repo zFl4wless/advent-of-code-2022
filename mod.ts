@@ -10,15 +10,15 @@ import { AdventDay08 } from './day_08/AdventDay08.ts';
 import { AdventDay09 } from './day_09/AdventDay09.ts';
 import { AdventDay10 } from './day_10/AdventDay10.ts';
 
-const answer = prompt('Select a day to view the solution output! [1-24] ');
+const answer = prompt('Select a day to view the solution output! [1-25] ');
 if (answer && isNaN(parseInt(answer))) {
     console.log('Invalid day selected!');
     Deno.exit(1);
 }
 
 const day = parseInt(answer!);
-if (day < 1 || day > 24) {
-    console.log('The given day is not within the range of 1-24.');
+if (day < 1 || day > 25) {
+    console.log('The given day is not within the range of 1-25.');
     Deno.exit(1);
 }
 
