@@ -1,0 +1,1 @@
+I stored the input in objects so I don't have to parse them :)
