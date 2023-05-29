@@ -10,6 +10,7 @@ export class AdventDay implements IAdventDay {
     part01(): void {
         throw new Error('Method not implemented.');
     }
+
     part02(): void {
         throw new Error('Method not implemented.');
     }

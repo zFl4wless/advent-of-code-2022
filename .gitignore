@@ -7,3 +7,6 @@ package-lock.json
 # Compiled JavaScript files
 *.js
 *.js.map
+
+# Idea
+.idea/
